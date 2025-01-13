@@ -1,5 +1,5 @@
 """Implement classes of nodes."""
-
+import numbers
 
 class Expression:
     """Base class for all tree nodes."""
@@ -8,19 +8,44 @@ class Expression:
         self.operands = operands 
 
     def __add__(self, other):
-        return Add(self, other)
+        if isinstance(other, Expression):
+            return Add(self, other)
+        elif isinstance(other, numbers.Number):
+            return Add(self, Number(other))
+        else:
+            raise ValueError("Not valid data type")
 
     def __sub__(self, other):
-        return Sub(self, other)
+        if isinstance(other, Expression):
+            return Sub(self, other)
+        elif isinstance(other, numbers.Number):
+            return Sub(self, Number(other))
+        else:
+            raise ValueError("Not valid data type")
 
     def __mult__(self, other):
-        return Mult(self, other)
+        if isinstance(other, Expression):
+            return Mult(self, other)
+        elif isinstance(other, numbers.Number):
+            return Mult(self, Number(other))
+        else:
+            raise ValueError("Not valid data type")
 
     def __truediv__(self, other):
-        return Div(self, other)
+        if isinstance(other, Expression):
+            return Div(self, other)
+        elif isinstance(other, numbers.Number):
+            return Div(self, Number(other))
+        else:
+            raise ValueError("Not valid data type")
 
     def __pow__(self, other):
-        return Pow(self, other)
+        if isinstance(other, Expression):
+            return Pow(self, other)
+        elif isinstance(other, numbers.Number):
+            return Pow(self, Number(other))
+        else:
+            raise ValueError("Not valid data type")
 
 
 class Operator(Expression):
@@ -90,5 +115,20 @@ class Pow(Operator(Expression)):
     symbol = "**"
     prec = 4
 
+
 class Symbol(Terminal(Expression)):
-    
+    """Initialise symbol data type."""
+
+    def __init__(self):
+        super().__init__()
+        if not isinstance(self.value, str):
+            raise ValueError(f"Symbol value should be string not {type(self.value)}")
+
+
+class Number(Terminal(Expression)):
+    """Initialise number data type."""
+
+    def __init__(self):
+        super().__init__()
+        if not isinstance(self.value, numbers.Number):
+            raise ValueError(f"Symbol value should be number not {type(self.value)}")
