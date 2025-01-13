@@ -8,10 +8,19 @@ class Expression:
         self.operands = operands 
 
     def __add__(self, other):
+
         if isinstance(other, Expression):
             return Add(self, other)
         elif isinstance(other, numbers.Number):
             return Add(self, Number(other))
+        else:
+            raise ValueError("Not valid data type")
+
+    def __radd__(self, other):
+        if isinstance(other, Expression):
+            return Add(other, self)
+        elif isinstance(other, numbers.Number):
+            return Add(Number(other), self)
         else:
             raise ValueError("Not valid data type")
 
@@ -23,6 +32,14 @@ class Expression:
         else:
             raise ValueError("Not valid data type")
 
+    def __rsub__(self, other):
+        if isinstance(other, Expression):
+            return Sub(other, self)
+        elif isinstance(other, numbers.Number):
+            return Sub(Number(other), self)
+        else:
+            raise ValueError("Not valid data type")
+
     def __mult__(self, other):
         if isinstance(other, Expression):
             return Mult(self, other)
@@ -31,11 +48,35 @@ class Expression:
         else:
             raise ValueError("Not valid data type")
 
+    def __rmult__(self, other):
+        if isinstance(other, Expression):
+            return Mult(other, self)
+        elif isinstance(other, numbers.Number):
+            return Mult(Number(other), self)
+        else:
+            raise ValueError("Not valid data type")
+
     def __truediv__(self, other):
         if isinstance(other, Expression):
             return Div(self, other)
         elif isinstance(other, numbers.Number):
             return Div(self, Number(other))
+        else:
+            raise ValueError("Not valid data type")
+
+    def __rtruediv__(self, other):
+        if isinstance(other, Expression):
+            return Div(other, self)
+        elif isinstance(other, numbers.Number):
+            return Div(Number(other), self)
+        else:
+            raise ValueError("Not valid data type")
+
+    def __rpow__(self, other):
+        if isinstance(other, Expression):
+            return Pow(other, self)
+        elif isinstance(other, numbers.Number):
+            return Pow(Number(other), self)
         else:
             raise ValueError("Not valid data type")
 
