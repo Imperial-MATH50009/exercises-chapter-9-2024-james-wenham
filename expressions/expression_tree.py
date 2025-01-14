@@ -1,6 +1,7 @@
 """Implement classes of nodes."""
 import numbers
 
+
 class Expression:
     """Base class for all tree nodes."""
 
@@ -108,7 +109,7 @@ class Operator(Expression):
 class Terminal(Expression):
     """Base class for termnial nodes."""
 
-    prec = 0
+    prec = 5
 
     def __init__(self, value):
         """Call expression class to say that operands is empty."""
@@ -122,54 +123,54 @@ class Terminal(Expression):
         return str(self.value)
 
 
-class Add(Operator(Expression)):
+class Add(Operator):
     """Addition node."""
 
     symbol = "+"
     prec = 1
 
 
-class Sub(Operator(Expression)):
+class Sub(Operator):
     """Subtraction node."""
 
     symbol = "-"
     prec = 1
 
 
-class Mult(Operator(Expression)):
+class Mult(Operator):
     """Multiplication node."""
 
     symbol = "*"
     prec = 2
 
 
-class Div(Operator(Expression)):
+class Div(Operator):
     """Division node."""
 
     symbol = "/"
     prec = 3
 
 
-class Pow(Operator(Expression)):
+class Pow(Operator):
     """Exponent node."""
 
     symbol = "**"
     prec = 4
 
 
-class Symbol(Terminal(Expression)):
+class Symbol(Terminal):
     """Initialise symbol data type."""
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, value):
+        super().__init__(value)
         if not isinstance(self.value, str):
             raise ValueError(f"Symbol value should be string not {type(self.value)}")
 
 
-class Number(Terminal(Expression)):
+class Number(Terminal):
     """Initialise number data type."""
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, value):
+        super().__init__(value)
         if not isinstance(self.value, numbers.Number):
-            raise ValueError(f"Symbol value should be number not {type(self.value)}")
+            raise ValueError(f"Number value should be number not {type(self.value)}")
