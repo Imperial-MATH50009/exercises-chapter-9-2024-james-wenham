@@ -1,2 +1,2 @@
 """Expressions tree package."""
-from .expression_tree import Symbol, Number, Add, Div, Mult, Sub, Pow
+from .expressions import Symbol, Number, Add, Div, Mul, Sub, Pow
